@@ -30,7 +30,7 @@ Set II (Vector ProjectsMap)
 -Labels (y)
 -Project Plots, GeoJSON on Google Docs Sheet
 
-Set III (Site & WordPress Blog Integration)
+Set III (Site & Ghost blog integration)
 
 
 
