@@ -1,10 +1,30 @@
 /* Page Specific CSS */
 
-body {font-family: Lato; background: #fff; color: #333; font-size: 16px; border: 52px #F8F8F8 solid; margin: 0px; padding: 20px 20px 200px 20px;}
+body {font-family: Lato; background: #fff; color: #333; font-size: 16px; margin: 0px; padding: 0px 0px 200px 0px;}
 h1 {font-size: 80px; font-family: Amatic SC; font-weight: normal; margin: 0px;}
 h2 {font-size: 50px; font-family: Amatic SC; font-weight: normal; margin: 11px 0px;}
 h3 {font-family: Amatic SC; font-size: 30px; margin: 10px 0px;}
 h4 {font-family: Lato; font-size: 24px;}
+
+header {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 200px;
+  background:  url(../binfillbanner.png) center no-repeat;
+}
+
+#update {
+  position: static;
+  background-color: red;
+  opacity: .5;
+  margin-top: 0;
+  margin-left: 75%;
+  height: 75;
+  width: 200;
+  padding: 10px;
+  font-style: white;
+}
 
 img {width: 100%;} 
 p a, a {color: #333; text-decoration: none; padding-bottom: 0px; border-bottom: 1px #FD9393 solid;}
@@ -20,10 +40,9 @@ code {font-family: "Consolas", "Ubuntu Mono", monospace; line-height: 22px; font
 
 .red-text {color: #FD9393;}
 
-#map {height: 400px; max-width: 530px; min-width: 300px; background: #DADADA;}
-#map a {border: none;}
 
-.container {margin: 24px 0px;}
+
+.container {margin: 24px 0px; border: 52px #F8F8F8 solid;}
 #tableFilter {margin: 12px 0px; border: none; border-bottom: 1px solid #333; background-color: transparent; padding: 0px; font-family: Lato; color: #333; font-size: 13px; height: 22px;}
 
 ::selection {background: #E5FF1D;} 
@@ -34,7 +53,7 @@ ul.nav li {display: inline; font-size: 10px; letter-spacing: .1em; text-transfor
 ul.nav li a {border: none;}
 ul.nav li a:hover {border-bottom: 1px #FD9393 solid;}
 
-#wrapper {margin: 0px auto; max-width: 900px; padding-top: 40px; /*margin-left: 250px;*/}
+#wrapper {margin: 0px auto; max-width: 1200px; padding-top: 40px; /*margin-left: 250px;*/}
 
 .button {padding: 5px 5px; background-color: #BEBEBE; font-size: 10px; color: #fff;}
 .button:hover {background: #B9FCFC; color: #47CCFC;}
@@ -42,7 +61,6 @@ ul.nav li a:hover {border-bottom: 1px #FD9393 solid;}
 .fauxButton .selected {background-color: #FF4646;}
 .colorText {color: #FF4646; text-transform: uppercase; font-weight: 700;}
 
-.leaflet-popup-content h2 {font-family: Lato; font-size: 14px; text-transform: uppercase;}
 
 #rightSide {height: 400px; max-width: 350px; width: 100%; float: right; padding-top: 5px;}
 #selectedSpot {display: none;}
@@ -52,9 +70,9 @@ ul.nav li a:hover {border-bottom: 1px #FD9393 solid;}
 #info p {font-size: 14px; padding: 4px; line-height: 19px; font-weight: 300;}
 #info {border-top: 4px #F8F8F8 solid;}
 
-#hackSpotsTable {cursor: pointer; background: #fff; overflow-x: auto; padding-bottom: 20px;}
-#hackSpotsTable table {min-width: 900px;}
-#hackSpotsTable .tHeader:hover {color: #FF4646;}
+#projTable {cursor: pointer; background: #fff; overflow-x: auto; padding-bottom: 20px;}
+#projTable table {min-width: 900px;}
+#projTable .tHeader:hover {color: #FF4646;}
 .tHeader::after {content: " \2193 \2191 "; font-size: 10px; padding-left: 3px;}
 .spotRow:hover {color: #FF4646;}
 .spotRow {border-left: 3px solid #ff00ff;}
@@ -62,9 +80,47 @@ ul.nav li a:hover {border-bottom: 1px #FD9393 solid;}
 .selectedRow {color: #FF4C0D;}
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 320px) and (max-width: 1024px) {
-  body {border: 20px #F8F8F8 solid; margin: 0px; padding: 20px 20px 80px 20px;}
+  body {border: 20px #F8F8F8 solid; margin: 0px; }
   #tableFilter, .clear, .resetMap {display: none;}
   #wrapper {max-width: 460px; padding-top: 20px;}
-  #hackSpotsTable, #map {min-width: 224px;}
+  #projTable, #map {min-width: 224px;}
 }
+
+svg {
+	fill: none;
+	background-color: rgba(183, 152, 106, 0.54);
+}
+
+.localroad {
+  fill: none;
+  stroke: black;
+  stroke-width: .6;
+  stroke-linejoin: round;
+}
+
+.streams {
+  fill: none;
+  stroke: blue;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.lakes {
+  fill: rgb(65, 65, 223);
+  stroke: none;
+}
+
+.label {
+  fill: #4F5320;
+}
+
+rect {
+  opacity: .75;
+}
+
+.plots {
+  fill: orange;
+
+}
+
 

@@ -1,0 +1,69 @@
+SiteMap
+____________________________________________________________________________________________________
+
+-Home
+	|- Blog
+	|- Map & Table
+	|- Yearbook (name)
+		|- Demographics
+		|- Transportation
+		|- Energy
+		|- Environment
+	|- About
+
+
+Scope + Punchlist
+____________________________________________________________________________________________________
+
+Set I (ProjectsTable)
+-Sortable (y)
+-Filterable (y)
+-Data hosted on Google Docs Sheet (y)
+-Symbols-for-Type 
+
+Project Name  |  Status  |  Type  | Gross Sq. Ft.  |  Budget  |  Address  |  Neighborhood  |  URL  |
+----------------------------------------------------------------------------------------------------
+
+Set II (Vector ProjectsMap)
+-Streams, Lakes, Minor Rds, Major Rds, Highways (y)
+-Zoom-to Neighborhoods 
+-Labels (y)
+-Project Plots, GeoJSON on Google Docs Sheet
+
+Set III (Site & WordPress Blog Integration)
+
+
+
+
+
+
+
+
+ColorList
+____________________________________________________________________________________________________
+
+#4F5320 - SignRect
+#1142AA - Commercial
+#6C8DD5 - Mixed Use
+#2D9B27 - Residential
+#d0b87c - Education
+#4F5320 - Civic (?)
+
+Make Data
+----------------------------------------------------------------------------------------------------
+boundingbox v1 -105.391554 39.960585 -105.170982 40.076766
+boundingbox v2 -105.304522 39.960126 -105.223339 40.070725
+
+
+ogr2ogr -t_srs EPSG:4326 -clipdst -105.304522 39.960126 -105.223339 40.070725 cliplakes.shp LAKES.shp
+
+ogr2ogr -f GeoJSON streams.json clipstreams.shp
+
+topojson -o mapdat.json HIGHWAYS.json STREAMS.json MAJOR_ROADS.json LOCAL_ROADS.json HIGHWAYS.json
+
+topojson -o mapdat4.json streams.json lakes.json streets.json
+
+
+
+
+

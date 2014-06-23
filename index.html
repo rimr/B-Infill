@@ -1,60 +1,140 @@
 <html>
-	<head>
-		<title>Hack Spots</title>
-		<script type="text/javascript" src="js/ICanHaz.js"></script> 
-		<script type="text/javascript" src='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js'></script>
-		<script type="text/javascript" src='js/jquery.js '></script>
-		<script type="text/javascript" src='js/tabletop.js'></script>
-		<script type="text/javascript" src='js/sheetsee.js'></script>
+  <head>
+    <title>B-Infill</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic'>
-		<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Amatic+SC:400,700'>		
-		<link media="screen" rel="stylesheet" type="text/css" href="css/style.css"> 
-		<link media="screen" rel="stylesheet" type="text/css" href="css/site.css"> 
+    <script type="text/javascript" src='js/jquery.js '></script>
+    <script type="text/javascript" src='js/tabletop.js'></script>
+    <script type="text/javascript" src='js/sheetsee.js'></script> 
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic'>
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Amatic+SC:400,700'>   
+    <link media="screen" rel="stylesheet" type="text/css" href="css/style.css"> 
+    <link media="screen" rel="stylesheet" type="text/css" href="css/site.css"> 
 
-	</head>
+  </head>
+
+
 <body>
-	<div id="wrapper">
+  <header>
+    <div id="update">
 
-		<div class="container">
-			<input id="tableFilter" type="text" placeholder="filter"></input>
-			<span class="clear button">Clear</span> 
-			<span class="noMatches">no matches</span>
-			<div id="projTable"></div>
-		</div>
+      <p> Launching July 1, 2014! </p>
 
-	</div><!-- end wrapper -->
+    </div>
+  </header>
+  <div id="wrapper">
+    <div class="container">
+      <svg id="projMap">
+        <g>
+          <g class="neighborhoods">
+            <g class="downtown">
+              <rect x="530" y="110" width="120" height="40" fill="#4F5320" opacity=".1"/>
+              <text x="555" y="135" fill="white"> Downtown </text></g>
+            <g class="southboulder">
+              <rect x="130" y="310" width="120" height="40" fill="#4F5320"/>
+              <text x="155" y="335" fill="white"> South Boulder </text></g>
+            <g class="northboulder">
+              <rect x="830" y="80" width="120" height="40" fill="#4F5320"/>
+              <text x="845" y="105" fill="white"> North Boulder </text></g>
+            <g class="eastboulder">
+              <rect x="600" y="360" width="120" height="40" fill="#4F5320"/>
+              <text x="625" y="385" fill="white"> East Boulder </text></g>
+            <g class="CU">
+              <rect x="420" y="200" width="120" height="40" fill="#4F5320"/>
+              <text x="445" y="225" fill="white"> CU </text></g>
+          </g>
+        </g>
+      </g>
+      </svg>
+    </div>
+    <div class="container">
+      <input id="projTableFilter" type="text" placeholder="filter by.."></input>
+        <span class="clear button">Clear</span> <span class="resetMap button">Reset Map</span>
+        <span class="noMatches">no matches</span>
+      <div id= "projTable"></div>
+    </div>
+  </div>
 
-	<script id="projTable" type="text/html">
-		<table>
-		<tr><th class="tHeader">Name</th><th class="tHeader">Address</th><th class="tHeader">City</th><th class="tHeader">State</th><th class="tHeader">Country</th><th class="">Elsewhere</th></tr>
-		  {{#rows}}
-		  	<tr id="{{rowNumber}}" class="spotRow"><td>{{name}}</td><td>{{address}}</td><td>{{city}}</td><td>{{state}}</td><td>{{country}}</td><td></td></tr>
 
-		  {{/rows}}
-	  </table>
-	</script>
+  <!-- projTable Template for Column Title and Data -->
 
 
-
-	<script type="text/javascript">
-	  document.addEventListener('DOMContentLoaded', function() {
-	  	var gData
-	  	// var URL = "10z-2P8l88hLF35EodIjigs5cyCD7BtmfZS631JMtIUU" // test new spreadsheets
-	  	var URL = "0Ao5u1U6KYND7dFVkcnJRNUtHWUNKamxoRGg4ZzNiT3c"
-			Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } ) 
-		}) 
-
-		// so long, so messy
-
-	  function showInfo(data) {
-	  	gData = data
-	  	// make the table, and the search bar
-	  	Sheetsee.makeTable(gData, "#projTable")
-	  	Sheetsee.initiateTableFilter(gData, "#tableFilter", "#projTable")}
+<script id="projTable" type="text/html">
+    <table>
+    <tr><th class="tHeader">Name</th><th class="tHeader">Type</th><th class="tHeader">Status</th><th class="tHeader">Sq. Ft.*</th><th class="tHeader">Cost**</th><th class="tHeader">Address</th><th class="tHeader">Architect</th><th class="tHeader">Contractor</th><th class="tHeader">Developer</th><th class="tHeader">Neighborhood</th></tr>
+      {{#rows}}
+        <tr id="{{rowNumber}}" class="spotRow"><td>{{name}}</td><td>{{type}}</td><td>{{status}}</td><td>{{sqft}}</td><td>{{cost}}</td><td>{{address}}</td><td>{{generalcontractor}}</td><td>{{architect}}</td><td>{{developer}}</td><td>{{neighborhood}}</td></tr>
+      {{/rows}}
+    </table>
+</script>
 
 
-	</script>
+<script type="text/javascript">
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var gData
+    var URL = "https://docs.google.com/spreadsheets/d/1WpQdqh-lfP70PJD76IXiy_enu8XnAWw2gukuirTpJf8/pubhtml"
+    Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
+  })
+
+  function showInfo(data) {
+    gData = data
+    var tableOptions = {"data": data
+    , "pagination": 10, "tableDiv": "#projTable", "filterDiv": "#projTableFilter"}
+    Sheetsee.makeTable(tableOptions)
+    Sheetsee.initiateTableFilter(tableOptions)
+
+  function showJSON (data) {
+    gData = data
+    var optionsJSON = ["name", "architect"]
+    return Sheetsee.createGeoJSON(data, optionsJSON)
+    }
+
+  var projection = d3.geo.albers()
+    .scale(550000)
+    .translate([100, -400])
+    .rotate([105.2797,0])
+    .center([0, 40.0176]);
+
+  var path = d3.geo.path()
+    .projection(projection);
+
+    d3.select("#map").append("path")
+      .data(showJSON(gData))
+      .attr("d", path)
+      .attr("class", "plots")
+      .attr("scale",.01);
+
+  }
+
+
+
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript" src='js/projmap.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
