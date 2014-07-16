@@ -1,3 +1,3 @@
-BoulderInfill
+B-Infill
 =============
-Covering the built environment in the city of Boulder. 
+Urban development in the city of Boulder
